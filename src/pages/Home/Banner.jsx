@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, scale } from "motion/react";
 import team1Img from "../../assets/team/team1.avif"
 import team2Img from "../../assets/team/team2.avif"
