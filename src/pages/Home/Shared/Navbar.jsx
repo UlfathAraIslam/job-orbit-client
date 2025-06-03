@@ -1,20 +1,19 @@
-import React, { use} from "react";
+import React, { use } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
 
 const Navbar = () => {
+  const { user, signOutUser } = use(AuthContext);
 
-  const {user,signOutUser}= use(AuthContext);
-
-  const handleSignOut = ()=>{
+  const handleSignOut = () => {
     signOutUser()
-    .then(()=>{
-      console.log('signed out user');
-    })
-    .catch(error =>{
-      console.log(error);
-    })
-  }
+      .then(() => {
+        console.log("signed out user");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const links = (
     <>
@@ -22,17 +21,24 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       {/* for applicant links  check roles as well */}
-      {
-        user && <>
-        <li><NavLink to="/myApplications">My Applications</NavLink></li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/myApplications">My Applications</NavLink>
+          </li>
         </>
-      }
+      )}
       {/* for recruiter, check role as well */}
-      {
-        user && <>
-        <li><NavLink to="/addJob">Add Job</NavLink></li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/addJob">Add Job</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myPostedJobs">My Posted Jobs</NavLink>
+          </li>
         </>
-      }
+      )}
     </>
   );
 
@@ -67,22 +73,25 @@ const Navbar = () => {
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        {
-        user? <button onClick={handleSignOut} className="btn">Logout</button> :
-        <>
-        <div className="flex gap-3">
-          <button className="btn btn-accent"><NavLink to="/register">Register</NavLink></button>
-        <button className="btn btn-accent">
-          <NavLink to="/signIn">SignIn</NavLink>
-        </button>
-        </div>
-        </>
-        }
+        {user ? (
+          <button onClick={handleSignOut} className="btn">
+            Logout
+          </button>
+        ) : (
+          <>
+            <div className="flex gap-3">
+              <button className="btn btn-accent">
+                <NavLink to="/register">Register</NavLink>
+              </button>
+              <button className="btn btn-accent">
+                <NavLink to="/signIn">SignIn</NavLink>
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
